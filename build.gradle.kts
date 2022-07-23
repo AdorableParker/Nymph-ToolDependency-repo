@@ -15,7 +15,9 @@ repositories {
 
 dependencies {
     implementation("org.apache.xmlgraphics:batik-codec:1.14")
+    implementation("org.apache.xmlgraphics:batik-svggen:1.14")
     implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
+//    implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
     testImplementation(kotlin("test"))
 }
 
