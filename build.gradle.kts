@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
 }
 
-group = "org.example"
+group = "org.nymph"
 version = "0.1.0"
 
 repositories {
