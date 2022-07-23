@@ -26,3 +26,11 @@ dependencies {
 //    implementation("com.beust:klaxon:5.5")
     testImplementation(kotlin("test"))
 }
+
+publishing {
+    publications {
+        register<MavenPublication>("BuildSVGTool") {
+            from(components["java"])
+        }
+    }
+}
