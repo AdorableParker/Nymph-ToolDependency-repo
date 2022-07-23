@@ -37,6 +37,8 @@ open class BuildSVGTool {
 
     fun setAttribute(element:Element,name: String, value: String) = element.setAttribute(name, value)
 
+    fun setAttributeNS(element: Element, namespaceURI: String, name: String, value: String) = element.setAttributeNS(namespaceURI,name, value)
+
     companion object {
         const val namespaceURI = "http://www.w3.org/1999/xlink"
         const val SVG_NAMESPACE_URI = SVGDOMImplementation.SVG_NAMESPACE_URI
