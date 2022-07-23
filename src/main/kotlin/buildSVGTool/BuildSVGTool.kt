@@ -1,6 +1,7 @@
 package buildSVGTool
 
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory
+import org.apache.batik.anim.dom.SVGDOMImplementation
 import org.apache.batik.transcoder.TranscoderInput
 import org.apache.batik.transcoder.TranscoderOutput
 import org.apache.batik.transcoder.image.PNGTranscoder
@@ -9,12 +10,11 @@ import org.w3c.dom.svg.SVGDocument
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
-open class BuildSVGTool() {
+open class BuildSVGTool {
 
-    val namespaceURI = "http://www.w3.org/1999/xlink"
     lateinit var doc: SVGDocument
 
-    constructor(file: String) : this() {
+    fun initDoc(file: String){
         val parser = XMLResourceDescriptor.getXMLParserClassName()
         doc = SAXSVGDocumentFactory(parser).createSVGDocument(file)
     }
@@ -28,5 +28,10 @@ open class BuildSVGTool() {
         outputStream.flush()
         outputStream.close()
         return ByteArrayInputStream(outputStream.toByteArray())
+    }
+
+    companion object {
+        const val namespaceURI = "http://www.w3.org/1999/xlink"
+        const val SVG_NAMESPACE_URI = SVGDOMImplementation.SVG_NAMESPACE_URI
     }
 }
