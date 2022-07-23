@@ -6,13 +6,14 @@ import org.apache.batik.transcoder.TranscoderInput
 import org.apache.batik.transcoder.TranscoderOutput
 import org.apache.batik.transcoder.image.PNGTranscoder
 import org.apache.batik.util.XMLResourceDescriptor
+import org.w3c.dom.Element
 import org.w3c.dom.svg.SVGDocument
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
 open class BuildSVGTool {
 
-    lateinit var doc: SVGDocument
+    private lateinit var doc: SVGDocument
 
     fun initDoc(file: String){
         val parser = XMLResourceDescriptor.getXMLParserClassName()
@@ -29,6 +30,12 @@ open class BuildSVGTool {
         outputStream.close()
         return ByteArrayInputStream(outputStream.toByteArray())
     }
+
+    fun getElementById(elementId: String): Element = doc.getElementById(elementId)
+
+    fun createElementNS(namespaceURI:String, qualifiedName: String): Element = doc.createElementNS(namespaceURI, qualifiedName)
+
+    fun setAttribute(element:Element,name: String, value: String) = element.setAttribute(name, value)
 
     companion object {
         const val namespaceURI = "http://www.w3.org/1999/xlink"
