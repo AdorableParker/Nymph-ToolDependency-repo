@@ -14,16 +14,8 @@ repositories {
 }
 
 dependencies {
-//    implementation("com.github.AdorableParker:nekoencode:0.1.0")
-
-//        implementation('org.apache.xmlgraphics:batik-all:1.14')
-//        implementation("org.apache.xmlgraphics:batik-xml:1.14")
-//        implementation("org.apache.xmlgraphics:batik-anim:1.14")
-//        implementation("org.apache.xmlgraphics:batik-svggen:1.14")
-//        implementation("org.apache.xmlgraphics:batik-svg-dom:1.14")
-        implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
-//    implementation("org.jsoup:jsoup:1.14.3")
-//    implementation("com.beust:klaxon:5.5")
+    implementation("org.apache.xmlgraphics:batik-codec:1.14")
+    implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
     testImplementation(kotlin("test"))
 }
 
