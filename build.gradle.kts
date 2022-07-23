@@ -6,8 +6,8 @@ plugins {
     `maven-publish`
 }
 
-group = "org.nymph"
-version = "0.1.0"
+group = "org.AdorableParker"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
@@ -25,14 +25,4 @@ dependencies {
 //    implementation("org.jsoup:jsoup:1.14.3")
 //    implementation("com.beust:klaxon:5.5")
     testImplementation(kotlin("test"))
-}
-
-
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
 }
