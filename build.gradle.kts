@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.7.10"
     `java-library`
@@ -14,8 +12,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.xmlgraphics:batik-codec:1.14")
-    implementation("org.apache.xmlgraphics:batik-svggen:1.14")
+    implementation("com.beust:klaxon:5.5")
+    implementation("org.jsoup:jsoup:1.14.3")
+
+
+//    implementation("org.apache.xmlgraphics:batik-codec:1.14")
+//    implementation("org.apache.xmlgraphics:batik-svggen:1.14")
+    implementation("org.apache.xmlgraphics:batik-all:1.14")
     implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
 //    implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
     testImplementation(kotlin("test"))
@@ -24,6 +27,9 @@ dependencies {
 publishing {
     publications {
         register<MavenPublication>("BuildSVGTool") {
+            from(components["java"])
+        }
+        register<MavenPublication>("seed") {
             from(components["java"])
         }
     }
