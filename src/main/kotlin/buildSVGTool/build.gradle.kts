@@ -1,5 +1,3 @@
-package buildSVGTool
-
 plugins {
     kotlin("jvm") version "1.7.10"
     `java-library`
@@ -29,6 +27,9 @@ dependencies {
 publishing {
     publications {
         register<MavenPublication>("BuildSVGTool") {
+            from(components["java"])
+        }
+        register<MavenPublication>("seed") {
             from(components["java"])
         }
     }
