@@ -2,9 +2,14 @@ import java.nio.file.Path
 import java.sql.DriverManager
 
 
-class SQLite(library: Path): SQLDataInterface {
+class SQLite(private val library: Path): SQLDataInterface {
 
-    private val connection = DriverManager.getConnection("jdbc:sqlite:$library")
+    private val connection by lazy {
+        DriverManager.getConnection("jdbc:sqlite:$library")
+    }
+
+    fun open() = "${connection.metaData.driverName}\n${connection.metaData.driverVersion}"
+
     /**
      * 执行给定的 SQL 语句, 该语句返回单个 ResultSet 对象.
      * @param sql – 要发送到数据库的 SQL 语句，通常是静态 SQL SELECT 语句
