@@ -5,8 +5,6 @@
       <module name="nymph-dependency.buildSVGTool" target="15" />
       <module name="nymph-dependency.buildSVGTool.main" target="15" />
       <module name="nymph-dependency.buildSVGTool.test" target="15" />
-      <module name="nymph-dependency.libraries.buildSVGTool.test" target="15" />
-      <module name="nymph-dependency.libraries.seed.test" target="15" />
       <module name="nymph-dependency.seed" target="15" />
       <module name="nymph-dependency.seed.main" target="15" />
       <module name="nymph-dependency.seed.test" target="15" />
