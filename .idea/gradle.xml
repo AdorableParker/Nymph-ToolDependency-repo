@@ -10,8 +10,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/buildSVGTool" />
-            <option value="$PROJECT_DIR$/seed" />
+            <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/buildSVGTool" />
+            <option value="$PROJECT_DIR$/libraries/seed" />
+            <option value="$PROJECT_DIR$/libraries/sqliteJDBC" />
           </set>
         </option>
       </GradleProjectSettings>
