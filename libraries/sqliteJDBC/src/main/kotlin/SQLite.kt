@@ -21,15 +21,14 @@ class SQLite(private val library: Path) : SQLDataInterface {
      */
     inline fun <reified T> executeDQLorDCL(sql: String): SQLResult<T> {
 
-        val mCreate = T::class.java.getDeclaredConstructor()
-        mCreate.isAccessible = true
 
         return runCatching {
             connection.createStatement().use { statement ->
                 statement.executeQuery(sql).let { resultSet ->
                     val resultList = mutableListOf<T>()
                     while (resultSet.next()) {
-                        val result = mCreate.newInstance(resultSet)
+                        val result =
+                            T::class.java.getDeclaredConstructor().apply { isAccessible = true }.newInstance(resultSet)
                         resultList.add(result)
                     }
                     SQLResult(null, resultList)
