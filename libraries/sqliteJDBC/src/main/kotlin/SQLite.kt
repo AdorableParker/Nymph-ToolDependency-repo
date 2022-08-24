@@ -1,10 +1,11 @@
 import java.nio.file.Path
+import java.sql.Driver
 import java.sql.DriverManager
 
 
 class SQLite(private val library: Path): SQLDataInterface {
-
     private val connection by lazy {
+        Class.forName("org.sqlite.JDBC") // 初始化 Sqlite 驱动类
         DriverManager.getConnection("jdbc:sqlite:$library")
     }
 
