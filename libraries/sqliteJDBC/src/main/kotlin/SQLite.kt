@@ -1,13 +1,17 @@
 import java.nio.file.Path
+import java.sql.Connection
 import java.sql.DriverManager
 
 
-class SQLite(private val library: Path): SQLDataInterface {
-    private val connection by lazy {
+class SQLite(private val library: Path) : SQLDataInterface {
+    val connection: Connection by lazy {
         Class.forName("org.sqlite.JDBC") // 初始化 Sqlite 驱动类
         DriverManager.getConnection("jdbc:sqlite:$library")
     }
 
+    /**
+     * 初始化 Sqlite 驱动类,连接数据库,输出驱动程序的版本信息
+     */
     fun open() = "${connection.metaData.driverName}\t${connection.metaData.driverVersion}"
 
     /**
@@ -15,13 +19,17 @@ class SQLite(private val library: Path): SQLDataInterface {
      * @param sql – 要发送到数据库的 SQL 语句，通常是静态 SQL SELECT 语句
      * @return 返回执行语句后受影响的行数或是异常的原因
      */
-    fun <T> executeDQLorDCL(sql: String): SQLResult<T> {
+    inline fun <reified T> executeDQLorDCL(sql: String): SQLResult<T> {
+
+        val mCreate = T::class.java.getDeclaredConstructor()
+        mCreate.isAccessible = true
+
         return runCatching {
             connection.createStatement().use { statement ->
                 statement.executeQuery(sql).let { resultSet ->
                     val resultList = mutableListOf<T>()
-                    while(resultSet.next()){
-                        val result:T by resultSet
+                    while (resultSet.next()) {
+                        val result = mCreate.newInstance(resultSet)
                         resultList.add(result)
                     }
                     SQLResult(null, resultList)
@@ -38,7 +46,7 @@ class SQLite(private val library: Path): SQLDataInterface {
      * 或是不返回任何内容的 SQL 语句, 例如 DDL 语句.
      * @return 返回执行语句后受影响的行数或是异常的原因
      */
-    fun executeDMLorDDL(sql: String):String {
+    fun executeDMLorDDL(sql: String): String {
         return runCatching {
             connection.createStatement().use { it.executeUpdate(sql) }
         }.onFailure {
@@ -46,7 +54,7 @@ class SQLite(private val library: Path): SQLDataInterface {
         }.getOrThrow().let { "SQL执行成功:${it}行数据受影响" }
     }
 
-    fun close(){
+    fun close() {
         connection.close()
     }
 }
