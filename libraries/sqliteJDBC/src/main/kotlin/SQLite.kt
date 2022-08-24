@@ -1,5 +1,4 @@
 import java.nio.file.Path
-import java.sql.Driver
 import java.sql.DriverManager
 
 
@@ -9,7 +8,7 @@ class SQLite(private val library: Path): SQLDataInterface {
         DriverManager.getConnection("jdbc:sqlite:$library")
     }
 
-    fun open() = "${connection.metaData.driverName}\n${connection.metaData.driverVersion}"
+    fun open() = "${connection.metaData.driverName}\t${connection.metaData.driverVersion}"
 
     /**
      * 执行给定的 SQL 语句, 该语句返回单个 ResultSet 对象.
@@ -29,7 +28,7 @@ class SQLite(private val library: Path): SQLDataInterface {
                 }
             }
         }.onFailure {
-            return SQLResult("SQL执行异常:${it.message}", listOf())
+            return SQLResult("SQL执行异常:${it.message}\nSQL:$sql", listOf())
         }.getOrThrow()
     }
 
@@ -43,7 +42,7 @@ class SQLite(private val library: Path): SQLDataInterface {
         return runCatching {
             connection.createStatement().use { it.executeUpdate(sql) }
         }.onFailure {
-            return "SQL执行异常:${it.message}"
+            return "SQL执行异常:${it.message}\nSQL:$sql"
         }.getOrThrow().let { "SQL执行成功:${it}行数据受影响" }
     }
 
