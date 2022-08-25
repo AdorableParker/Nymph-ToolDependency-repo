@@ -3,7 +3,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 
 
-class SQLite(private val library: Path) : SQLDataInterface {
+class SQLite(private val library: Path){//} : SQLDataInterface {
     val connection: Connection by lazy {
         Class.forName("org.sqlite.JDBC") // 初始化 Sqlite 驱动类
         DriverManager.getConnection("jdbc:sqlite:$library")
@@ -20,16 +20,20 @@ class SQLite(private val library: Path) : SQLDataInterface {
      * @return 返回执行语句后受影响的行数或是异常的原因
      */
     inline fun <reified T> executeDQLorDCL(sql: String): SQLResult<T> {
-
-
         return runCatching {
             connection.createStatement().use { statement ->
                 statement.executeQuery(sql).let { resultSet ->
                     val resultList = mutableListOf<T>()
+                    val initFunc = T::class.java.getDeclaredConstructor(*listOf(Map::class.java).toTypedArray()).apply { isAccessible = true }
                     while (resultSet.next()) {
-                        val result =
-                            T::class.java.getDeclaredConstructor().apply { isAccessible = true }.newInstance(resultSet)
-                        resultList.add(result)
+                        val nameList = T::class.members.map { it.name }
+                        val row = mutableMapOf<String, Any?>()
+                        for(i in 1..resultSet.metaData.columnCount) {
+                            if (resultSet.metaData.getColumnName(i) in nameList) {
+                                row[resultSet.metaData.getColumnName(i)] = resultSet.getObject(i)
+                            }
+                        }
+                        initFunc.newInstance(row).let(resultList::add)
                     }
                     SQLResult(null, resultList)
                 }
@@ -57,4 +61,6 @@ class SQLite(private val library: Path) : SQLDataInterface {
         connection.close()
     }
 }
+
+
 
