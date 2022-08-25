@@ -46,7 +46,7 @@ class SQLite(private val library: Path){//} : SQLDataInterface {
      * @param sql – 要发送到数据库的 SQL 语句，通常是静态 SQL SELECT 语句
      * @return 返回执行语句后受影响的行数或是异常的原因
      */
-    private inline fun <reified T> executeDQLorDCL(sql: () -> String): SQLResult<T> = executeDQLorDCL(sql.invoke())
+    inline fun <reified T> executeDQLorDCL(sql: () -> String): SQLResult<T> = executeDQLorDCL(sql.invoke())
 
 
     /**
