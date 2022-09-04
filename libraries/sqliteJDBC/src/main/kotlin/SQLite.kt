@@ -48,7 +48,6 @@ class SQLite(private val library: Path){//} : SQLDataInterface {
      */
     inline fun <reified T> executeDQLorDCL(sql: () -> String): SQLResult<T> = executeDQLorDCL(sql.invoke())
 
-
     /**
      * 执行给定的 SQL 语句, 它可能是 INSERT, UPDATE 或 DELETE 语句或不返回任何内容的 SQL 语句, 例如 SQL DDL 语句.
      * @param sql SQL数据操作语言(DML)语句, 例如  INSERT, UPDATE 或 DELETE;
@@ -62,6 +61,8 @@ class SQLite(private val library: Path){//} : SQLDataInterface {
             return "SQL执行异常:${it.message}\nSQL:$sql"
         }.getOrThrow().let { "SQL执行成功:${it}行数据受影响" }
     }
+
+    fun executeDMLorDDL(sql: () -> String): String = executeDMLorDDL(sql.invoke())
 
     fun close() {
         connection.close()
