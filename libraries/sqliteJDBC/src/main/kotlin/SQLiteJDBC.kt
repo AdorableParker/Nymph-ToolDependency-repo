@@ -3,7 +3,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 
 
-class SQLite(private val library: Path) {
+class SQLiteJDBC(private val library: Path) {
 
     val connection: Connection by lazy {
         Class.forName("org.sqlite.JDBC") // 初始化 Sqlite 驱动类
