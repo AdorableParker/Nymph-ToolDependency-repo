@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.6">
-      <module name="nymph-dependency.buildSVGTool" target="15" />
-      <module name="nymph-dependency.buildSVGTool.main" target="15" />
-      <module name="nymph-dependency.buildSVGTool.test" target="15" />
-      <module name="nymph-dependency.seed" target="15" />
-      <module name="nymph-dependency.seed.main" target="15" />
-      <module name="nymph-dependency.seed.test" target="15" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="18" />
   </component>
 </project>

@@ -1,7 +1,0 @@
-$dokka.format:javadoc-v1
-$dokka.linkExtension:html
-$dokka.location:////PointingToDeclaration/[root]/package-summary.html
-$dokka.location:/SQLResult///PointingToDeclaration/[root]/SQLResult.html
-$dokka.location:/SQLite///PointingToDeclaration/[root]/SQLite.html
-
-

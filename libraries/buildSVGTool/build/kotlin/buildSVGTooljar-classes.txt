@@ -1,0 +1,1 @@
+D:\KotlinProject\Nymph-ToolDependency-repo\libraries\buildSVGTool\build\classes\kotlin\main\buildSVGTool\BuildSVGTool$Companion.class;D:\KotlinProject\Nymph-ToolDependency-repo\libraries\buildSVGTool\build\classes\kotlin\main\buildSVGTool\BuildSVGTool.class
